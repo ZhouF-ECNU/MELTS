@@ -1,28 +1,22 @@
 function [X_train,Y_train,X_val,Y_val,X_traVal,Y_traVal,X_test,Y_test] = split_traVal_test(outCv,view_num,X_cross,Y_cross)
-% 测试集
 X_test = X_cross{1,outCv};
 Y_test = Y_cross{1,outCv};
-% 训练集和验证集
 X_traVal = cell(1,view_num);
 Y_traVal = [];
 
-%训练集
 X_train = cell(1,view_num);
 Y_train = [];
 
-%验证集
 X_val = cell(1,view_num);
 Y_val = [];
 temp = 0;
 for tra_val = 1:5
     if (tra_val ~= outCv)
-        % 训练验证集
         for tra_view = 1:view_num
             X_traVal{1,tra_view} = [X_traVal{1,tra_view};X_cross{1,tra_val}{1,tra_view}];   
         end
         Y_traVal = [Y_traVal;Y_cross{1,tra_val}];
         
-        %训练集和验证集
         if(temp==0)
             for tra_view = 1:view_num
                 X_val{1,tra_view} = [X_val{1,tra_view};X_cross{1,tra_val}{1,tra_view}];   
